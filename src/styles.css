@@ -1,0 +1,57 @@
+/* Stile base */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f8ff;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Pulsanti menu */
+.menu button {
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 18px;
+}
+
+/* Selettore Pokémon */
+.nickname-box div {
+  display: inline-block;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.allenamento-container img {
+  width: 100px;
+  height: 100px;
+}
+
+/* Campo di battaglia */
+.campo {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+.pokemon {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  width: 200px;
+}
+
+/* Finestra modale per le abilità */
+#abilitaModal {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  z-index: 100;
+}
+
+/* Pulsanti generici */
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+}/* You can add global styles to this file, and also import other style files */

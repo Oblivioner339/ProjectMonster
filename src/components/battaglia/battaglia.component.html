@@ -1,0 +1,27 @@
+<h2>Battaglia!</h2>
+<p>{{ messaggi }}</p>
+
+<div class="campo">
+  <div class="pokemon">
+    <h3>Tu</h3>
+    <img src="assets/img/allenatorep1.png" alt="Allenatore" width="100" />
+    <p>{{ player.nome }}</p>
+    <div>hp: {{ player.hp }}</div>
+  </div>
+
+  <div class="pokemon">
+    <h3>Nemico</h3>
+    <p>{{ enemy.nome }}</p>
+    <div>hp: {{ enemy.hp }}</div>
+  </div>
+</div>
+
+<button (click)="attacca()">Attacca</button>
+<button (click)="apriFinestraAbilita()">Abilità</button>
+
+<div *ngIf="modalAbilita" id="abilitaModal">
+  <h3>Abilità: {{ nomeAbilita }}</h3>
+  <p>{{ descrizioneAbilita }}</p>
+  <button (click)="usaAbilita()">Usa</button>
+  <button (click)="chiudiFinestraAbilita()">Chiudi</button>
+</div>
