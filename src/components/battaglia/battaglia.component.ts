@@ -57,12 +57,12 @@ export class BattagliaComponent implements OnInit {
     const statNemico = this.statPokemon[enemyKey];
 
     this.player = {
-      nickname, // ← qui mettiamo il nickname
+      nickname,
       nome,
       hp,
       attacco,
       difesa,
-      abilita: this.statPokemon[nome].abilita,
+      abilita: this.statPokemon[nome].abilita.bind(null, null), // placeholder, verrà riassegnato sotto
       nomeAbilita: this.statPokemon[nome].nomeAbilita,
       descrizioneAbilita: this.statPokemon[nome].descrizioneAbilita
     };
@@ -72,15 +72,19 @@ export class BattagliaComponent implements OnInit {
       hp: statNemico.hp,
       attacco: statNemico.attacco,
       difesa: statNemico.difesa,
-      abilita: statNemico.abilita
+      abilita: statNemico.abilita.bind(null, null) // idem
     };
 
-// Binding per abilità
+// Aggiungiamo le reference dopo
     this.player.enemy = this.enemy;
     this.player.log = (msg: string) => this.messaggi = msg;
 
+// Re-bind corretto ora che i riferimenti sono disponibili
+    this.player.abilita = this.statPokemon[nome].abilita.bind(null, this.player);
+
     this.enemy.enemy = this.player;
     this.enemy.log = (msg: string) => this.messaggi = msg;
+    this.enemy.abilita = this.statPokemon[enemyKey].abilita.bind(null, this.enemy);
 
     this.nomeAbilita = this.player.nomeAbilita;
     this.descrizioneAbilita = this.player.descrizioneAbilita;
