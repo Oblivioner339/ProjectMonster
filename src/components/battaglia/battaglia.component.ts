@@ -1,20 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {BackgroundService} from '../../services/background.service';
 
 @Component({
   standalone: true,
   selector: 'app-battaglia',
   imports: [CommonModule],
   templateUrl: './battaglia.component.html',
-  styleUrls: []
+  styleUrls: ["battaglia.component.css"]
 })
+
 export class BattagliaComponent implements OnInit {
+
   player: any = {};
   enemy: any = {};
   messaggi = '';
   modalAbilita = false;
   nomeAbilita = '';
   descrizioneAbilita = '';
+
+  constructor(private background:BackgroundService)
+  {
+    background.cambiaSfondo('battaglia');
+  }
 
   private readonly statPokemon: any = {
     Flamix: {
@@ -45,6 +53,23 @@ export class BattagliaComponent implements OnInit {
       descrizioneAbilita: 'Abbassa la difesa del nemico di 2 punti.'
     }
   };
+  getImagePath(nome: string, tipo: 'player' | 'enemy'): string {
+    const immagini: Record<string, {player: string, enemy: string}> = {
+      Flamix: {
+        player: 'assets/img/flamixalleato.gif',
+        enemy: 'assets/img/flamixnemico.gif'
+      },
+      Grooslime: {
+        player: 'assets/img/flamixalleato.gif',
+        enemy: 'assets/img/flamixnemico.gif'
+      },
+      Aquarock: {
+        player: 'assets/img/flamixalleato.gif',
+        enemy: 'assets/img/flamixnemico.gif'
+      }
+    };
+    return immagini[nome]?.[tipo] || 'assets/img/default.png';
+  }
 
   ngOnInit(): void {
     const nome = localStorage.getItem('nome')!;
@@ -60,9 +85,10 @@ export class BattagliaComponent implements OnInit {
       nickname,
       nome,
       hp,
+      maxHp: hp,
       attacco,
       difesa,
-      abilita: this.statPokemon[nome].abilita.bind(null, null), // placeholder, verrà riassegnato sotto
+    abilita: this.statPokemon[nome].abilita.bind(null, null), // placeholder, verrà riassegnato sotto
       nomeAbilita: this.statPokemon[nome].nomeAbilita,
       descrizioneAbilita: this.statPokemon[nome].descrizioneAbilita
     };
@@ -70,6 +96,7 @@ export class BattagliaComponent implements OnInit {
     this.enemy = {
       nome: enemyKey,
       hp: statNemico.hp,
+      maxHp: statNemico.hp,
       attacco: statNemico.attacco,
       difesa: statNemico.difesa,
       abilita: statNemico.abilita.bind(null, null) // idem

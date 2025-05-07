@@ -1,15 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import {BackgroundService} from '../../services/background.service';
 
 @Component({
   standalone: true,
   selector: 'app-opzioni',
   imports: [CommonModule, RouterModule],
   templateUrl: './opzioni.component.html',
-  styleUrls: []
+  styleUrls: ["opzioni.component.css"]
 })
 export class OpzioniComponent implements OnInit {
+
+  constructor(private background:BackgroundService)
+  {
+    background.cambiaSfondo('sfondoAnimato');
+  }
+
   ngOnInit(): void {
     const audio = document.getElementById('bgmusic') as HTMLAudioElement;
     const musicaCheckbox = document.getElementById('musica') as HTMLInputElement;
