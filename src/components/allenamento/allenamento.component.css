@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap');
+/* Stile base */
+.body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Cinzel', serif;
+
+  background: url('https://www.transparenttextures.com/patterns/dark-mosaic.png'), radial-gradient(ellipse at center, #0f0c29, #302b63, #24243e);
+  background-size: cover;
+  animation: backgroundMove 60s linear infinite;
+}
+
+/*crea sfondo che si muove,animato*/
+@keyframes backgroundMove {
+  0% { background-position: 0 0; }
+  100% { background-position: 1000px 1000px; }
+}
+h1,h2{
+  margin-bottom: 2rem;
+  color: #ffcc70;
+  text-shadow: 0 0 10px #000;
+}
+
+h1{
+  font-size: 3.5rem;
+  animation: pulseText 2s ease-in-out infinite;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h2 {
+  font-size: 2.5rem;
+}
+
+/* bagliore rosso pulsante*/
+@keyframes pulseText {
+  0%, 100% { text-shadow: 0 0 10px #000, 0 0 20px #8b0000; }
+  50% { text-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000; }
+}
+
+.allenamento-container {
+  text-align: center;
+  padding: 2rem;
+  max-width: 800px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  border: 2px solid #ffcc70;
+  border-radius: 20px;
+  box-shadow: 0 0 25px #000;
+  backdrop-filter: blur(8px);
+  margin-top: 80px;
+  margin-left: 325px;
+}
+
+
+.allenamento-container h2 {
+  font-size: 2.5rem;
+  color: #ffcc70;
+  text-shadow: 0 0 10px #000;
+  margin-bottom: 2rem;
+}
+
+/* Nickname */
+.nickname-box {
+  margin-bottom: 2rem;
+}
+
+.nickname-box label {
+  font-size: 1.2rem;
+  color: #ffcc70;
+  display: block;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 5px #000;
+}
+
+.nickname-box input {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 2px solid #ffcc70;
+  background: #1e1e1e;
+  color: #fff;
+  width: 80%;
+  max-width: 300px;
+  outline: none;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+.nickname-box input:focus {
+  border-color: #ffaa00;
+  box-shadow: 0 0 10px #ffaa00;
+}
+
+/* Scelte Pokémon */
+.allenamento-container > div:not(.nickname-box):not(:first-child) {
+  display: inline-block;
+  margin: 1rem;
+  padding: 1rem;
+  border: 2px solid #ffcc70;
+  border-radius: 15px;
+  background: #1a1a1a;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  width: 150px;
+}
+
+.allenamento-container > div:not(.nickname-box):hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px #ffaa00, 0 0 5px #ffcc70 inset;
+}
+
+.allenamento-container img {
+  width: 100%;
+  height: 150px; /* Altezza fissa per uniformità */
+  object-fit: cover; /* Ritaglia e adatta l'immagine al box */
+  border-radius: 10px;
+  border: 4px solid #fff; /* Spessore uniforme */
+  margin-bottom: 0.5rem;
+  box-shadow: 0 0 10px #000;
+}
+
+
+.allenamento-container p {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #ffcc70;
+  text-shadow: 0 0 5px #000;
+}

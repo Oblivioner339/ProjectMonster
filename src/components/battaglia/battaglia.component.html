@@ -1,27 +1,39 @@
-<h2>Battaglia!</h2>
-<p>{{ messaggi }}</p>
+<div class="campo-battaglia">
+  <div class="battleground">
+    <!-- Nemico -->
+    <div class="pokemon-opponent">
+      <img [src]="getImagePath(enemy.nome, 'enemy')" alt="Nemico" />
+      <div class="info-box">
+        <p>{{ enemy.nome }} Lv.{{ enemy.livello }}</p>
+        <div class="hp-bar">
+          <div class="hp-fill" [style.width.%]="(enemy.hp / enemy.maxHp) * 100"></div>
+        </div>
+      </div>
+    </div>
 
-<div class="campo">
-  <div class="pokemon">
-    <h3>Tu</h3>
-    <img src="assets/img/allenatorep1.png" alt="Allenatore" width="100" />
-    <p>{{ player.nome }}</p>
-    <div>hp: {{ player.hp }}</div>
-  </div>
+    <!-- Giocatore -->
+    <div class="pokemon-player">
+      <img [src]="getImagePath(player.nome, 'player')" alt="Giocatore" />
+      <div class="info-box">
+        <p>{{ player.nome }} Lv.{{ player.livello }}</p>
+        <div class="hp-bar">
+          <div class="hp-fill" [style.width.%]="(player.hp / player.maxHp) * 100"></div>
+        </div>
+      </div>
+    </div>
 
-  <div class="pokemon">
-    <h3>Nemico</h3>
-    <p>{{ enemy.nome }}</p>
-    <div>hp: {{ enemy.hp }}</div>
-  </div>
+<!-- Pulsanti e messaggi -->
+<p class="messaggio">{{ messaggi }}</p>
+<div class="comandi">
+  <button (click)="attacca()">Attacca</button>
+  <button (click)="apriFinestraAbilita()">Abilità</button>
 </div>
-
-<button (click)="attacca()">Attacca</button>
-<button (click)="apriFinestraAbilita()">Abilità</button>
 
 <div *ngIf="modalAbilita" id="abilitaModal">
   <h3>Abilità: {{ nomeAbilita }}</h3>
   <p>{{ descrizioneAbilita }}</p>
   <button (click)="usaAbilita()">Usa</button>
   <button (click)="chiudiFinestraAbilita()">Chiudi</button>
+</div>
+  </div>
 </div>
