@@ -1,6 +1,8 @@
 <div class="campo-battaglia">
-  <div class="battleground">
-    <!-- Nemico -->
+  <div class="overlay" *ngIf="animazioneInCorso"></div>
+  <img *ngIf="showOblioInfernale" [src]="gifSrc" class="oblioInfernale" />
+
+  <!-- Nemico -->
     <div class="pokemon-opponent">
       <img [src]="getImagePath(enemy.nome, 'enemy')" alt="Nemico" />
       <div class="info-box">
@@ -23,17 +25,17 @@
     </div>
 
 <!-- Pulsanti e messaggi -->
-<p class="messaggio">{{ messaggi }}</p>
-<div class="comandi">
-  <button (click)="attacca()">Attacca</button>
-  <button (click)="apriFinestraAbilita()">Abilità</button>
-</div>
-
-<div *ngIf="modalAbilita" id="abilitaModal">
-  <h3>Abilità: {{ nomeAbilita }}</h3>
-  <p>{{ descrizioneAbilita }}</p>
-  <button (click)="usaAbilita()">Usa</button>
-  <button (click)="chiudiFinestraAbilita()">Chiudi</button>
-</div>
+  <p class="messaggio">{{ messaggi }}</p>
+  <div class="comandi">
+    <button (click)="attacca()">Attacca</button>
+    <button (click)="apriFinestraAbilita()">Abilità</button>
   </div>
+  <div *ngIf="modalAbilita" id="abilitaModal">
+    <div class="abilitaa">
+      <h3>Abilità: {{ nomeAbilita }}</h3>
+      <p>{{ descrizioneAbilita }}</p>
+      <button (click)="usaAbilita()">Usa</button>
+    <button (click)="chiudiFinestraAbilita()">Chiudi</button>
+  </div>
+</div>
 </div>

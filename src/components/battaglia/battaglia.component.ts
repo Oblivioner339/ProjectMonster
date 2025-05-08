@@ -7,20 +7,22 @@ import {BackgroundService} from '../../services/background.service';
   selector: 'app-battaglia',
   imports: [CommonModule],
   templateUrl: './battaglia.component.html',
-  styleUrls: ["battaglia.component.css"]
+  styleUrls: ['battaglia.component.css']
 })
-
 export class BattagliaComponent implements OnInit {
-
   player: any = {};
   enemy: any = {};
   messaggi = '';
   modalAbilita = false;
   nomeAbilita = '';
   descrizioneAbilita = '';
+  animazioneInCorso = false;
+  showOblioInfernale = false;
 
-  constructor(private background:BackgroundService)
-  {
+  gifSrc: string = '';
+
+
+  constructor(private background: BackgroundService) {
     background.cambiaSfondo('battaglia');
   }
 
@@ -28,11 +30,11 @@ export class BattagliaComponent implements OnInit {
     Flamix: {
       hp: 100, attacco: 10, difesa: 3,
       abilita(thisObj: any) {
-        thisObj.enemy.hp -= 15;
-        thisObj.log(`${thisObj.nome} usa Fiammata! Infligge 15 danni extra!`);
+        thisObj.enemy.hp -= 25;
+        thisObj.log(`${thisObj.nome} usa Oblio Infernale! Infligge 25 danni extra!`);
       },
-      nomeAbilita: 'Fiammata',
-      descrizioneAbilita: 'Infligge 15 danni extra al nemico.'
+      nomeAbilita: 'Oblio Infernale',
+      descrizioneAbilita: 'Infligge 25 danni extra al nemico.'
     },
     Grooslime: {
       hp: 80, attacco: 15, difesa: 5,
@@ -53,8 +55,9 @@ export class BattagliaComponent implements OnInit {
       descrizioneAbilita: 'Abbassa la difesa del nemico di 2 punti.'
     }
   };
+
   getImagePath(nome: string, tipo: 'player' | 'enemy'): string {
-    const immagini: Record<string, {player: string, enemy: string}> = {
+    const immagini: Record<string, { player: string, enemy: string }> = {
       Flamix: {
         player: 'assets/img/flamixalleato.gif',
         enemy: 'assets/img/flamixnemico.gif'
@@ -88,7 +91,7 @@ export class BattagliaComponent implements OnInit {
       maxHp: hp,
       attacco,
       difesa,
-    abilita: this.statPokemon[nome].abilita.bind(null, null), // placeholder, verrà riassegnato sotto
+      abilita: this.statPokemon[nome].abilita.bind(null, null),
       nomeAbilita: this.statPokemon[nome].nomeAbilita,
       descrizioneAbilita: this.statPokemon[nome].descrizioneAbilita
     };
@@ -99,14 +102,11 @@ export class BattagliaComponent implements OnInit {
       maxHp: statNemico.hp,
       attacco: statNemico.attacco,
       difesa: statNemico.difesa,
-      abilita: statNemico.abilita.bind(null, null) // idem
+      abilita: statNemico.abilita.bind(null, null)
     };
 
-// Aggiungiamo le reference dopo
     this.player.enemy = this.enemy;
     this.player.log = (msg: string) => this.messaggi = msg;
-
-// Re-bind corretto ora che i riferimenti sono disponibili
     this.player.abilita = this.statPokemon[nome].abilita.bind(null, this.player);
 
     this.enemy.enemy = this.player;
@@ -115,8 +115,8 @@ export class BattagliaComponent implements OnInit {
 
     this.nomeAbilita = this.player.nomeAbilita;
     this.descrizioneAbilita = this.player.descrizioneAbilita;
-  }
 
+  }
 
   getRandomEnemy(exclude: string): string {
     const keys = Object.keys(this.statPokemon).filter(k => k !== exclude);
@@ -142,6 +142,7 @@ export class BattagliaComponent implements OnInit {
     }
 
     setTimeout(() => this.contrattacco(), 1000);
+
   }
 
   contrattacco(): void {
@@ -162,7 +163,16 @@ export class BattagliaComponent implements OnInit {
     if (this.player.hp <= 0) {
       this.messaggi = `Sei stato sconfitto da ${this.enemy.nome}...`;
     }
+
   }
+
+  riproduciEffettoSuono(): void {
+    const audio = new Audio();
+    audio.src = 'assets/audio/oblioinfernale.mp3';
+    audio.currentTime = 0;
+    audio.play();
+  }
+
 
   apriFinestraAbilita(): void {
     this.modalAbilita = true;
@@ -174,8 +184,45 @@ export class BattagliaComponent implements OnInit {
 
   usaAbilita(): void {
     if (this.player.hp <= 0 || this.enemy.hp <= 0) return;
-    this.player.abilita();
-    this.chiudiFinestraAbilita();
-    setTimeout(() => this.contrattacco(), 1000);
+
+    if (this.player.nome === 'Flamix') {
+      this.animazioneInCorso = true;
+      const ripetizioni = 0;
+      const durataGIF = 3500;
+
+      let count = 0;
+
+      const ripetiAnimazione = () => {
+        this.showOblioInfernale = false;
+
+        // Attendi un attimo prima di riassegnare per assicurarti che Angular aggiorni il DOM
+        setTimeout(() => {
+          // Forza il reset cambiando l’URL con una query string casuale
+          this.riproduciEffettoSuono();
+          this.gifSrc = `assets/img/oblioinfernale.gif?${new Date().getTime()}`;
+          this.showOblioInfernale = true;
+
+          count++;
+          if (count < ripetizioni) {
+            setTimeout(ripetiAnimazione, durataGIF);
+          } else {
+            setTimeout(() => {
+              this.player.abilita();
+              this.showOblioInfernale = false;
+              this.animazioneInCorso = false;
+              this.chiudiFinestraAbilita();
+              setTimeout(() => this.contrattacco(), 1000);
+            }, durataGIF);
+          }
+        });
+      };
+
+      ripetiAnimazione();
+    } else {
+      this.player.abilita();
+      this.chiudiFinestraAbilita();
+      setTimeout(() => this.contrattacco(), 1000);
+    }
   }
+
 }
