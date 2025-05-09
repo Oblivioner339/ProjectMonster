@@ -1,20 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap');
-/* Stile base */
-.body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Cinzel', serif;
 
-  background: url('https://www.transparenttextures.com/patterns/dark-mosaic.png'), radial-gradient(ellipse at center, #0f0c29, #302b63, #24243e);
-  background-size: cover;
-  animation: backgroundMove 60s linear infinite;
+
+.battleground {
+  position: fixed; /* Fissa lo sfondo rispetto alla finestra */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('/assets/img/allenamento-background.png') no-repeat center center;
+  background-size: cover; /* L'immagine si adatta a tutta l'area dello schermo */
+  background-attachment: fixed; /* Mantiene lo sfondo fisso quando scrolli la pagina */
+  overflow: hidden; /* Impedisce che il contenuto esca fuori */
 }
 
-/*crea sfondo che si muove,animato*/
-@keyframes backgroundMove {
-  0% { background-position: 0 0; }
-  100% { background-position: 1000px 1000px; }
-}
+
+
 h1,h2{
   margin-bottom: 2rem;
   color: #ffcc70;
@@ -34,11 +34,6 @@ h2 {
   font-size: 2.5rem;
 }
 
-/* bagliore rosso pulsante*/
-@keyframes pulseText {
-  0%, 100% { text-shadow: 0 0 10px #000, 0 0 20px #8b0000; }
-  50% { text-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000; }
-}
 
 .allenamento-container {
   text-align: center;
@@ -92,33 +87,63 @@ h2 {
   border-color: #ffaa00;
   box-shadow: 0 0 10px #ffaa00;
 }
-
-/* Scelte Pokémon */
-.allenamento-container > div:not(.nickname-box):not(:first-child) {
+.pokemon-option {
   display: inline-block;
   margin: 1rem;
   padding: 1rem;
+  width: 150px;
   border: 2px solid #ffcc70;
   border-radius: 15px;
-  background: #1a1a1a;
+  background: url('/assets/img/grass.png') center/cover no-repeat;
   cursor: pointer;
   transition: transform 0.3s, box-shadow 0.3s;
-  width: 150px;
+  text-align: center;
+  min-height: 100px; /* Aumenta l'altezza per fare spazio al contenuto */
+  position: relative; /* Per un migliore controllo degli elementi all'interno */
 }
 
-.allenamento-container > div:not(.nickname-box):hover {
+.pokemon-option {
+  position: relative;
+  height: 140px; /* oppure la tua altezza preferita */
+  overflow: hidden;
+}
+
+.pokemon-content {
+  position: absolute;
+  bottom: 8px; /* distanza dal fondo */
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.pokemon-option:hover {
   transform: scale(1.1);
   box-shadow: 0 0 15px #ffaa00, 0 0 5px #ffcc70 inset;
 }
 
+.pokemon-option img {
+  width: 70%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+}
+
+.pokemon-option p {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #ffcc70;
+  text-shadow: 0 0 5px #000;
+}
+
+
 .allenamento-container img {
-  width: 100%;
-  height: 150px; /* Altezza fissa per uniformità */
+  width: 70%;
+  height: 70px; /* Altezza fissa per uniformità */
   object-fit: cover; /* Ritaglia e adatta l'immagine al box */
   border-radius: 10px;
-  border: 4px solid #fff; /* Spessore uniforme */
   margin-bottom: 0.5rem;
-  box-shadow: 0 0 10px #000;
+
 }
 
 

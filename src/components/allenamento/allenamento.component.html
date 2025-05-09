@@ -1,19 +1,31 @@
-<div class="body">
-<div class="allenamento-container"> <h2>Scegli il tuo compagno!</h2>
-  <div class="nickname-box"> <label for="nickname">Il tuo nickname:</label>
-    <input [(ngModel)]="nickname" placeholder="Es: Gigi D'Alessio" />
-  </div>
-  <div (click)="scegliPokemon('Flamix')">
-    <img src="assets/img/flamixalleato.gif" alt="Flamix">
-    <p>Flamix</p>
-  </div>
-  <div (click)="scegliPokemon('Grooslime')">
-    <img src="assets/img/satana.png" alt="Grooslime">
-    <p>Grooslime</p>
-  </div>
-  <div (click)="scegliPokemon('Aquarock')">
-    <img src="assets/img/gesu.jpg" alt="Aquarock">
-    <p>Aquarock</p>
+<div class="page-container">
+  <div class="allenamento-container">
+    <h2>Scegli il tuo compagno!</h2>
+
+    <div class="nickname-box">
+      <label for="nickname">Il tuo nickname:</label>
+      <input [(ngModel)]="nickname" placeholder="Es: Gigi D'Alessio" />
+    </div>
+
+    <div class="pokemon-option" (click)="scegliPokemon('Flamix')">
+      <div class="pokemon-content">
+      <img src="assets/img/flamixalleato.gif" alt="Flamix" />
+      <p>Flamix</p>
+    </div>
+    </div>
+
+    <div class="pokemon-option" (click)="scegliPokemon('Grooslime')">
+      <div class="pokemon-content">
+      <img src="assets/img/satana.png" alt="Grooslime" />
+      <p>Grooslime</p>
+    </div>
+    </div>
+
+    <div class="pokemon-option" (click)="scegliPokemon('Aquarock')">
+      <div class="pokemon-content">
+      <img src="assets/img/gesu.jpg" alt="Aquarock" />
+      <p>Aquarock</p>
+    </div>
   </div>
 </div>
-</div>
+  </div>

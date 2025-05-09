@@ -24,8 +24,21 @@ export class BackgroundService
     fontFamily: "'Cinzel', serif",
     background: "url('/assets/img/battle-background.jpg'), radial-gradient(ellipse at center, #0f0c29, #302b63, #24243e)",
     backgroundSize: 'cover',
+    animation:"none"
+
+
 
   };
+  //per avere un altro sfondo modifica quello qu sotto
+  background3 = {
+    margin: '0',
+    padding: '0',
+    fontFamily: "'Cinzel', serif",
+    background: "url('/assets/img/allenamento-background.png'), radial-gradient(ellipse at center, #0f0c29, #302b63, #24243e)",
+    backgroundSize: 'cover',
+    animation: "none"
+  };
+
   cambiaSfondo(nomeSfondo:string)
   {
     let body = document.getElementById('pagina');
@@ -37,6 +50,9 @@ export class BackgroundService
         break;
       case 'battaglia':
         css=this.background2;
+        break;
+      case 'allenamento':
+        css=this.background3;
         break;
 
       default:css=this.backgroundOptions;

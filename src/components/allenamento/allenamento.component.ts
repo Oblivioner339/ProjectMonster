@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import {BackgroundService} from '../../services/background.service';
 
 @Component({
   standalone: true,
@@ -13,6 +14,10 @@ import { FormsModule } from '@angular/forms';
 export class AllenamentoComponent {
   nickname: string = ''; // nuovo campo per il nickname
 
+  constructor(private background:BackgroundService)
+  {
+    background.cambiaSfondo('allenamento');
+  }
   scegliPokemon(nome: string): void {
     if (!this.nickname.trim()) {
       alert('Inserisci un nickname prima di continuare!');
