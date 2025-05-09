@@ -2,14 +2,7 @@
 
 
 
-.battleground {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  background: url('/assets/img/battle-background.jpg') no-repeat center center;
-  background-size: cover;
-  overflow: hidden;
-}
+
 
 .pokemon-opponent, .pokemon-player {
   position: absolute;

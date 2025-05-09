@@ -30,14 +30,14 @@ export class BackgroundService
 
   };
   //per avere un altro sfondo modifica quello qu sotto
-  background3 = {
+  /*background3 = {
     margin: '0',
     padding: '0',
     fontFamily: "'Cinzel', serif",
     background: "url('/assets/img/allenamento-background.png'), radial-gradient(ellipse at center, #0f0c29, #302b63, #24243e)",
-    backgroundSize: 'cover',
-    animation: "none"
-  };
+    animation: "none",
+    rotate: '0deg',
+  };*/
 
   cambiaSfondo(nomeSfondo:string)
   {
@@ -51,9 +51,9 @@ export class BackgroundService
       case 'battaglia':
         css=this.background2;
         break;
-      case 'allenamento':
+      /*case 'allenamento':
         css=this.background3;
-        break;
+        break;*/
 
       default:css=this.backgroundOptions;
     }
