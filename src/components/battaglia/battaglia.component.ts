@@ -192,7 +192,7 @@ export class BattagliaComponent implements OnInit {
 
       let count = 0;
 
-      const ripetiAnimazione = () => {
+      const an_oblioinfernale = () => {
         this.showOblioInfernale = false;
 
         // Attendi un attimo prima di riassegnare per assicurarti che Angular aggiorni il DOM
@@ -204,7 +204,7 @@ export class BattagliaComponent implements OnInit {
 
           count++;
           if (count < ripetizioni) {
-            setTimeout(ripetiAnimazione, durataGIF);
+            setTimeout(an_oblioinfernale, durataGIF);
           } else {
             setTimeout(() => {
               this.player.abilita();
@@ -217,12 +217,14 @@ export class BattagliaComponent implements OnInit {
         });
       };
 
-      ripetiAnimazione();
+      an_oblioinfernale();
     } else {
       this.player.abilita();
       this.chiudiFinestraAbilita();
       setTimeout(() => this.contrattacco(), 1000);
     }
+
   }
+
 
 }
