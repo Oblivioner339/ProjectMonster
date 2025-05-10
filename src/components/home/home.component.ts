@@ -11,17 +11,22 @@ import { BackgroundService } from '../../services/background.service';
   styleUrls: ['home.component.css']
 })
 export class HomeComponent {
-  showIntro = !localStorage.getItem('introPlayed');
+  showIntro = true;
 
   constructor(private background: BackgroundService) {
-    background.cambiaSfondo('sfondoAnimato');
+    this.background.cambiaSfondo('sfondoAnimato');
+    if (!localStorage.getItem('introPlayed')) {
+      this.showIntro = true;
+    } else {
+      this.showIntro = false;
+    }
   }
 
   iniziaGioco(): void {
     this.showIntro = false;
     localStorage.setItem('introPlayed', 'true');
     const audio = document.getElementById('bgmusic') as HTMLAudioElement;
-    audio?.play().catch(() => {});
+    if (audio && audio.paused) audio.play().catch(() => {});
   }
 
   forzaSplash(): void {
