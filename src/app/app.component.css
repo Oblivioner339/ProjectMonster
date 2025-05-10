@@ -1,1 +1,11 @@
-
+.music-toggle {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  color: #ffcc70;
+  cursor: pointer;
+  z-index: 1000;
+  user-select: none;
+  text-shadow: 0 0 5px #000;
+}

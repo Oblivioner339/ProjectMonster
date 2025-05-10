@@ -39,6 +39,8 @@ h2 {
 
 }
 
+
+
 .menu button {
   background: linear-gradient(145deg, #2b2b2b, #1a1a1a);
   border: 2px solid #ffcc70;
@@ -85,4 +87,57 @@ h2 {
   color: #aaa;
   cursor: not-allowed;
   box-shadow: none;
+}
+
+.intro-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  cursor: pointer;
+}
+
+.intro-screen img {
+
+  position: absolute;
+  width: 1920px;
+  height: 1080px;
+ margin-top: 80px;
+  margin-right: 40px;
+  z-index: -1;
+}
+
+.splash-button {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  background: #222;
+  color: #ffcc70;
+  border: 1px solid #ffcc70;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Cinzel', serif;
+  opacity: 0.7;
+  z-index: 1001;
+}
+.splash-button:hover {
+  opacity: 1;
+  background: #333;
+}
+
+.intro-screen h2 {
+  margin-top: 650px;
+  font-family: 'Cinzel', serif;
+  color: #ffcc70;
+  font-size: 2rem;
+  animation: pulseText 2s ease-in-out infinite;
 }

@@ -1,3 +1,6 @@
-<router-outlet></router-outlet>
-<audio id="bgmusic" loop src="assets/audio/Panetty.mp3"></audio>
-
+<div (click)="handleUserInteraction()">
+  <audio id="bgmusic" loop src="assets/audio/mainmenu.mp3"></audio>
+  <div class="music-toggle" (click)="toggleMusic(); $event.stopPropagation()"> {{ musicOn ? '🔊' : '🔇' }}
+  </div>
+  <router-outlet></router-outlet>
+</div>
