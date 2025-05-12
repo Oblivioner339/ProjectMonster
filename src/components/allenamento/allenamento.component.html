@@ -4,10 +4,20 @@
 
     <div class="nickname-box">
       <label for="nickname">Il tuo nickname:</label>
-      <input [(ngModel)]="nickname" placeholder="Es: Gigi D'Alessio" />
+      <input [(ngModel)]="nickname" placeholder="Es: Stefano Rubinetti" />
     </div>
 
-    <div class="pokemon-option" (click)="scegliPokemon('Flamix')">
+    <video
+      #transitionVideo
+      class="video-transizione"
+      *ngIf="mostraVideo"
+      [src]="videoPath"
+      autoplay
+      muted
+      (ended)="vaiABattaglia()">
+    </video>
+
+    <!-- Pokémon --> <div class="pokemon-option" (click)="scegliPokemon('Flamix')">
       <div class="pokemon-content">
       <img src="assets/img/flamixalleato.gif" alt="Flamix" />
       <p>Flamix</p>
@@ -16,14 +26,14 @@
 
     <div class="pokemon-option" (click)="scegliPokemon('Grooslime')">
       <div class="pokemon-content">
-      <img src="assets/img/satana.png" alt="Grooslime" />
+      <img src="assets/img/grooslimealleato.gif" alt="Grooslime" />
       <p>Grooslime</p>
     </div>
     </div>
 
     <div class="pokemon-option" (click)="scegliPokemon('Aquarock')">
       <div class="pokemon-content">
-      <img src="assets/img/gesu.jpg" alt="Aquarock" />
+      <img src="assets/img/aquarockalleato.gif" alt="Aquarock" />
       <p>Aquarock</p>
     </div>
   </div>

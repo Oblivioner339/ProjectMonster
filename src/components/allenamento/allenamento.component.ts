@@ -1,23 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import {BackgroundService} from '../../services/background.service';
+import { BackgroundService } from '../../services/background.service';
 
 @Component({
   standalone: true,
   selector: 'app-allenamento',
   imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './allenamento.component.html',
-  styleUrls: ["allenamento.component.css"]
+  styleUrls: ['allenamento.component.css']
 })
 export class AllenamentoComponent {
-  nickname: string = ''; // nuovo campo per il nickname
+  nickname: string = '';
+  mostraVideo = false;
+  videoPath = 'assets/vid/parte1.webm';
 
-  constructor(private background:BackgroundService)
-  {
+  @ViewChild('transitionVideo') videoRef!: ElementRef<HTMLVideoElement>;
+
+  constructor(private background: BackgroundService) {
     background.cambiaSfondo('allenamento');
   }
+
   scegliPokemon(nome: string): void {
     if (!this.nickname.trim()) {
       alert('Inserisci un nickname prima di continuare!');
@@ -36,12 +40,19 @@ export class AllenamentoComponent {
     localStorage.setItem('hp', stat.hp.toString());
     localStorage.setItem('attacco', stat.attacco.toString());
     localStorage.setItem('difesa', stat.difesa.toString());
-
-    // 👉 Aggiungi questa riga per salvare il nome dell'immagine
     localStorage.setItem('img', nome.toLowerCase());
 
-    location.href = '/battaglia';
+    this.mostraVideo = true;
+
+// Autoplay se serve
+    setTimeout(() => {
+      const video = this.videoRef?.nativeElement;
+      video?.play().catch(() => {});
+    }, 0);
+
   }
 
+  vaiABattaglia(): void {
+    location.href = '/battaglia';
+  }
 }
-

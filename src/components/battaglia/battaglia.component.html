@@ -1,4 +1,14 @@
 <div class="campo-battaglia">
+  <video
+    #transitionVideo
+    class="video-transizione"
+    *ngIf="mostraVideo"
+    [src]="videoPath"
+    autoplay
+    muted
+    (ended)="onVideoEnded()">
+  </video>
+
   <div class="overlay" *ngIf="animazioneInCorso"></div>
   <img *ngIf="showOblioInfernale" [src]="gifSrc" class="oblioInfernale" />
 

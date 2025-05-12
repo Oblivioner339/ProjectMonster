@@ -12,9 +12,7 @@ export class BackgroundService
     margin: '0',
     padding: '0',
     fontFamily: "'Cinzel', serif",
-    background: "url('https://www.transparenttextures.com/patterns/dark-mosaic.png'), radial-gradient(ellipse at center, #0f0c29, #302b63, #24243e)",
-    backgroundSize: 'cover',
-    animation: 'backgroundMove 60s linear infinite'
+    background: "url('/assets/img/bgmainmenu.png'), radial-gradient"
   };
 
   //per avere un altro sfondo modifica quello qu sotto

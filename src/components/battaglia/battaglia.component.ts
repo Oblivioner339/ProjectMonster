@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {BackgroundService} from '../../services/background.service';
+import { BackgroundService } from '../../services/background.service';
 
 @Component({
   standalone: true,
   selector: 'app-battaglia',
   imports: [CommonModule],
-  templateUrl: './battaglia.component.html',
+  templateUrl: '/battaglia.component.html',
   styleUrls: ['battaglia.component.css']
 })
-export class BattagliaComponent implements OnInit {
+export class BattagliaComponent implements OnInit, AfterViewInit {
   player: any = {};
   enemy: any = {};
   messaggi = '';
@@ -18,9 +18,12 @@ export class BattagliaComponent implements OnInit {
   descrizioneAbilita = '';
   animazioneInCorso = false;
   showOblioInfernale = false;
+  videoPath = 'assets/vid/parte2.webm';
+  mostraVideo = true;
 
   gifSrc: string = '';
 
+  @ViewChild('transitionVideo') videoRef!: ElementRef<HTMLVideoElement>;
 
   constructor(private background: BackgroundService) {
     background.cambiaSfondo('battaglia');
@@ -56,6 +59,7 @@ export class BattagliaComponent implements OnInit {
     }
   };
 
+  // Rimuoviamo il setTimeout che faceva partire il video ad ogni rilevamento del ciclo di Angular.
   getImagePath(nome: string, tipo: 'player' | 'enemy'): string {
     const immagini: Record<string, { player: string, enemy: string }> = {
       Flamix: {
@@ -63,12 +67,12 @@ export class BattagliaComponent implements OnInit {
         enemy: 'assets/img/flamixnemico.gif'
       },
       Grooslime: {
-        player: 'assets/img/flamixalleato.gif',
-        enemy: 'assets/img/flamixnemico.gif'
+        player: 'assets/img/grooslimealleato.gif',
+        enemy: 'assets/img/grooslimenemico.gif'
       },
       Aquarock: {
-        player: 'assets/img/flamixalleato.gif',
-        enemy: 'assets/img/flamixnemico.gif'
+        player: 'assets/img/aquarockalleato.gif',
+        enemy: 'assets/img/aquarocknemico.gif'
       }
     };
     return immagini[nome]?.[tipo] || 'assets/img/default.png';
@@ -106,20 +110,32 @@ export class BattagliaComponent implements OnInit {
     };
 
     this.player.enemy = this.enemy;
-    this.player.log = (msg: string) => this.messaggi = msg;
+    this.player.log = (msg: string) => (this.messaggi = msg);
     this.player.abilita = this.statPokemon[nome].abilita.bind(null, this.player);
 
     this.enemy.enemy = this.player;
-    this.enemy.log = (msg: string) => this.messaggi = msg;
+    this.enemy.log = (msg: string) => (this.messaggi = msg);
     this.enemy.abilita = this.statPokemon[enemyKey].abilita.bind(null, this.enemy);
 
     this.nomeAbilita = this.player.nomeAbilita;
     this.descrizioneAbilita = this.player.descrizioneAbilita;
+  }
 
+  ngAfterViewInit(): void {
+    // Il video partirà automaticamente grazie all'attributo autoplay.
+    // Se desideri comunque forzare il play una sola volta, lo facciamo qui.
+    if (this.videoRef) {
+      this.videoRef.nativeElement.play().catch(() => {});
+    }
+  }
+
+  // Metodo per gestire la fine del video
+  onVideoEnded(): void {
+    this.mostraVideo = false;
   }
 
   getRandomEnemy(exclude: string): string {
-    const keys = Object.keys(this.statPokemon).filter(k => k !== exclude);
+    const keys = Object.keys(this.statPokemon).filter((k) => k !== exclude);
     return keys[Math.floor(Math.random() * keys.length)];
   }
 
@@ -142,7 +158,6 @@ export class BattagliaComponent implements OnInit {
     }
 
     setTimeout(() => this.contrattacco(), 1000);
-
   }
 
   contrattacco(): void {
@@ -163,7 +178,6 @@ export class BattagliaComponent implements OnInit {
     if (this.player.hp <= 0) {
       this.messaggi = `Sei stato sconfitto da ${this.enemy.nome}...`;
     }
-
   }
 
   riproduciEffettoSuono(): void {
@@ -172,7 +186,6 @@ export class BattagliaComponent implements OnInit {
     audio.currentTime = 0;
     audio.play();
   }
-
 
   apriFinestraAbilita(): void {
     this.modalAbilita = true;
@@ -195,9 +208,8 @@ export class BattagliaComponent implements OnInit {
       const ripetiAnimazione = () => {
         this.showOblioInfernale = false;
 
-        // Attendi un attimo prima di riassegnare per assicurarti che Angular aggiorni il DOM
+        // Attendi un attimo prima di riassegnare la GIF
         setTimeout(() => {
-          // Forza il reset cambiando l’URL con una query string casuale
           this.riproduciEffettoSuono();
           this.gifSrc = `assets/img/oblioinfernale.gif?${new Date().getTime()}`;
           this.showOblioInfernale = true;
@@ -224,5 +236,4 @@ export class BattagliaComponent implements OnInit {
       setTimeout(() => this.contrattacco(), 1000);
     }
   }
-
 }
