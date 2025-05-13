@@ -21,7 +21,7 @@ export class BackgroundService
     padding: '0',
     fontFamily: "'Cinzel', serif",
     background: "url('/assets/img/battle-background.jpg'), radial-gradient(ellipse at center, #0f0c29, #302b63, #24243e)",
-    backgroundSize: 'cover',
+    bottom: '150',
     animation:"none"
 
 

@@ -21,26 +21,38 @@ export class AppComponent implements OnInit {
 
     const savedVolume = localStorage.getItem("volume");
     const savedMusic = localStorage.getItem("musicOn");
+    const prologoPlayed = localStorage.getItem("prologoPlayed");
 
     audio.volume = savedVolume ? parseFloat(savedVolume) : 0.5;
-
-
     this.musicOn = savedMusic !== "false";
-    if (this.musicOn) audio.play().catch(() => {});
+
+    // 🎵 Solo se il prologo è già stato visto
+    if (this.musicOn && prologoPlayed === "true") {
+      audio.play().catch(() => {});
+    }
+
     audio.ontimeupdate = () => {
       localStorage.setItem("musicTime", audio.currentTime.toString());
     };
+
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
       const url = event.urlAfterRedirects || event.url;
+
       if (url.includes('/battaglia')) {
         this.cambiaMusica('assets/audio/battlemusic.mp3');
-      } else {
-        this.cambiaMusica('assets/audio/mainmenu.mp3');
+      } else if (url.includes('/home')) {
+        // Solo cambia musica del main menu se prologo finito
+        if (localStorage.getItem("prologoPlayed") === "true") {
+          this.cambiaMusica('assets/audio/mainmenu.mp3');
+        }
+      } else if (url.includes('/prologo')) {
+        this.cambiaMusica('assets/audio/prologo.mp3');
       }
     });
   }
+
   cambiaMusica(path: string) {
     const audio = document.getElementById('bgmusic') as HTMLAudioElement;
     if (!audio || audio.src.includes(path)) return;

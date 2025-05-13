@@ -66,10 +66,10 @@
 
 .oblioInfernale {
   position: absolute;
-  top: 60%;
+  top: 55%;
   left: 88%;
   transform: translate(-50%, -50%) ;
-  width: 350px;
+  width: 400px;
   height: auto;
   z-index: 10;
   animation: fadeInOut 3500ms ease-in-out;
@@ -78,7 +78,7 @@
 .video-transizione {
   position: absolute;
   z-index: 9999;
-  bottom: -50px;
+  bottom: 0px;
   width: 1600px;
   right: 0px;
 

@@ -1,15 +1,64 @@
+<!-- PROLOGO -->
+<div class="prologo" *ngIf="showPrologo" [class.fade-out]="prologoFinito">
+  <div class="crawl">
+    <p>
+      Da un tempo senza inizio,
+      una Creatura leggendaria vegliava sugli universi,
+      testimone silenziosa della nascita dei mondi.
+    </p>
+    <p>
+      Tra i miliardi di stelle,
+      un solo pianeta attirò davvero il suo sguardo:
+      la Terra.
+</p>
+
+     <p> Incuriosita da quella fragile bellezza,
+      discese sulla superficie,
+      quando ancora l’umanità non esisteva.</p>
+
+      <p>Camminò tra foreste antiche,
+      osservò creature selvagge
+        e pure, Nel loro spirito, trovò qualcosa di unico.</p>
+
+     <p> Dall’unione con alcune di esse
+      nacquero cuccioli con poteri straordinari:
+       figli del divino e del mortale. </p>
+
+      <p>Ma mentre lei era eterna,
+      i suoi compagni invecchiavano e morivano.
+        Ogni addio la spezzava un po’ di più.</p>
+
+      <p>Immortale, rimase sola in un mondo che amava,
+      portando nel cuore un dolore che il tempo non poteva curare.</p>
+
+     <p> Fu allora che prese una decisione…
+      una che avrebbe cambiato tutto...
+    </p>
+  </div>
+  <button class="skip-button" (click)="skipPrologo()">Salta Prologo</button>
+  <audio id="prologomusic" src="assets/audio/prologuemusic.mp3" autoplay></audio>
+</div>
+
+<!-- SPLASH SCREEN -->
 <div class="intro-screen" *ngIf="showIntro" (click)="iniziaGioco()">
   <img src="assets/img/splashscreen.png" alt="Logo" />
-  <h2>Clicca per iniziare</h2> </div>
-<button class="splash-button" (click)="forzaSplash()" *ngIf="!showIntro">
-  Torna alla Splash Screen
-</button>
-<div class="body" *ngIf="!showIntro">
-  <div class="menu"> <img src="assets/img/creatureclash.PNG">
+  <h2>Clicca per iniziare</h2>
+</div>
+
+<!-- MENU -->
+<div class="body" *ngIf="showMenu">
+  <div class="menu">
+    <audio id="bgmusic" loop src="assets/audio/mainmenu.mp3"></audio>
+    <img src="assets/img/creatureclash.PNG" />
     <button disabled>Storia (in sviluppo)</button>
     <button routerLink="/opzioni">Opzioni</button>
     <button routerLink="/allenamento">Allenamento</button>
   </div>
+
+  <!-- Pulsanti sotto -->
+  <button class="splash-button" (click)="forzaSplash()">Torna alla Splash Screen</button>
+  <button class="splash-button2" (click)="forzaPrologo()">Torna al Prologo</button>
 </div>
 
-<audio id="bgmusic" loop src="assets/audio/mainmenu.mp3"></audio>
+<!-- AUDIO BACKGROUND MENU -->
+
